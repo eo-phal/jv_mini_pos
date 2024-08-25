@@ -12,50 +12,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.phall.demo.dto.CompanyDTO;
-import com.phall.demo.entity.Company;
-import com.phall.demo.mapper.CompanyMapper;
-import com.phall.demo.service.CompanyService;
+import com.phall.demo.dto.CustomerDTO;
+import com.phall.demo.entity.Customer;
+import com.phall.demo.mapper.CustomerMapper;
+import com.phall.demo.service.CustomerService;
 
 @RestController
-@RequestMapping("company")
-public class CompanyController {
+@RequestMapping("customer")
+public class CustomerController {
     @Autowired
-    private CompanyService companyService;
+    private CustomerService customerService;
 
     @GetMapping
     public ResponseEntity<?> getAllEntity(){
-        List<Company> listAll =  companyService.listAll();
+        List<Customer> listAll =  customerService.listAll();
         return ResponseEntity.ok(listAll);
     }
 
     @PostMapping
-    public ResponseEntity<?> saveData(@RequestBody CompanyDTO dto){
-        Company company = CompanyMapper.toCompany(dto);
-        Company saveData = companyService.saveData(company);
+    public ResponseEntity<?> saveData(@RequestBody CustomerDTO dto){
+        Customer customer = CustomerMapper.toCustomer(dto);
+        Customer saveData = customerService.saveData(customer);
 
-        CompanyDTO dto2 = CompanyMapper.toDTO(saveData);
+        CustomerDTO dto2 = CustomerMapper.toDTO(saveData);
         return ResponseEntity.ok(dto2);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<?> getById(@PathVariable Long id){
-        Company getData =  companyService.getById(id);
-        CompanyDTO dto = CompanyMapper.toDTO(getData);
+        Customer getData =  customerService.getById(id);
+        CustomerDTO dto = CustomerMapper.toDTO(getData);
         return ResponseEntity.ok(dto);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody CompanyDTO dto){
-        Company company = CompanyMapper.toCompany(dto);
-        Company update = companyService.update(id, company);
-        CompanyDTO dataUpdate = CompanyMapper.toDTO(update);
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody CustomerDTO dto){
+        Customer customer = CustomerMapper.toCustomer(dto);
+        Customer update = customerService.update(id, customer);
+        CustomerDTO dataUpdate = CustomerMapper.toDTO(update);
         return ResponseEntity.ok(dataUpdate);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
-        companyService.deleteById(id);
+        customerService.deleteById(id);
         return ResponseEntity.ok(null);
     }
 
