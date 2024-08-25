@@ -1,0 +1,17 @@
+package com.phall.demo.dto;
+
+// import org.hibernate.validator.constraints.Length;
+
+// import jakarta.validation.constraints.NotBlank;
+// import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+
+@Data
+public class GeneralSettingDTO {
+    // @NotBlank(message = "Name is mandatory")
+    // @Length(min = 3, max = 5, message = "Name be between 3 and 5 characters")
+    private String siteTitle;
+    private String siteLogo;
+    private String sitePhone;
+    private String siteAddress;
+}
