@@ -5,12 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.phall.demo.entity.Branch;
 import com.phall.demo.entity.GeneralSetting;
 import com.phall.demo.exception.ResourceNotFoundException;
-import com.phall.demo.repository.BranchRepository;
 import com.phall.demo.repository.GeneralSettingRepository;
-import com.phall.demo.service.BranchService;
 import com.phall.demo.service.GeneralSettingService;
 
 @Service

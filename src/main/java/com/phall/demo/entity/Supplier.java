@@ -1,0 +1,40 @@
+package com.phall.demo.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "suppliers")
+public class Supplier {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "supplier_id")
+    private Long id;
+
+    @Column(name = "local_name")
+    private String supplierLocalName;
+
+    @Column(name = "eng_name")
+    private String supplierEngName;
+
+    @Column(name = "email")
+    private String supplierEmail;
+
+    @Column(name = "phone")
+    private String supplierPhone;
+
+    @Column(name = "address")
+    private String supplierAddress;
+
+    @Column(name = "vat_number")
+    private String supplierVatNumber;
+
+
+}
