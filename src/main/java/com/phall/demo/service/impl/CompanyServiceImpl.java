@@ -5,10 +5,13 @@ import org.springframework.stereotype.Service;
 
 import com.phall.demo.entity.Company;
 import com.phall.demo.exception.ResourceNotFoundException;
+import com.phall.demo.mapper.CompanyMapper;
 import com.phall.demo.repository.CompanyRepository;
+import com.phall.demo.response.CompanyResponse;
 import com.phall.demo.service.CompanyService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyServiceImpl implements CompanyService{
@@ -16,8 +19,11 @@ public class CompanyServiceImpl implements CompanyService{
     @Autowired
     private CompanyRepository companyRepository;
 
-    public List<Company> listAll(){
-        return companyRepository.findAll();
+    @Autowired
+    private CompanyMapper companyMapper;
+
+    public List<CompanyResponse> listAll(){
+        return companyRepository.findAll().stream().map(companyMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -50,10 +56,4 @@ public class CompanyServiceImpl implements CompanyService{
         companyRepository.delete(byId);
     }
 
-
-    
-    
-
-
-    
 }   

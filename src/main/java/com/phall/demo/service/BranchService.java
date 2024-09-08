@@ -3,10 +3,11 @@ package com.phall.demo.service;
 import java.util.List;
 
 import com.phall.demo.entity.Branch;
+import com.phall.demo.response.BranchResponse;
 
 public interface BranchService {
 
-    List<Branch> listAll();
+    List<BranchResponse> listAll();
 
     Branch saveData(Branch branch);
 

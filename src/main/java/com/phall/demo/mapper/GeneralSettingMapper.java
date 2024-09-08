@@ -1,24 +1,15 @@
 package com.phall.demo.mapper;
 
-import com.phall.demo.dto.GeneralSettingDTO;
+import org.mapstruct.Mapper;
+
 import com.phall.demo.entity.GeneralSetting;
+import com.phall.demo.request.GeneralSettingRequest;
+import com.phall.demo.response.GeneralSettingResponse;
 
-public class GeneralSettingMapper {
-    public static GeneralSetting toGeneralSetting(GeneralSettingDTO dto){
-        GeneralSetting generalSetting = new GeneralSetting();
-        generalSetting.setSiteTitle(dto.getSiteTitle());
-        generalSetting.setSitePhone(dto.getSitePhone());
-        generalSetting.setSiteLogo(dto.getSiteLogo());
-        generalSetting.setSiteAddress(dto.getSiteAddress());
-        return generalSetting;
-    }
+@Mapper(componentModel = "spring")
+public interface GeneralSettingMapper {
 
-    public static GeneralSettingDTO toDTO(GeneralSetting entity){
-        GeneralSettingDTO dto = new GeneralSettingDTO();
-        dto.setSiteTitle(entity.getSiteTitle());
-        dto.setSitePhone(entity.getSitePhone());
-        dto.setSiteLogo(entity.getSiteLogo());
-        dto.setSiteAddress(entity.getSiteAddress());
-        return dto;
-    }
+    GeneralSetting toEntity(GeneralSettingRequest request);
+    GeneralSettingResponse toDTO(GeneralSetting entity);
+
 }

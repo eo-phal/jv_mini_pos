@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.phall.demo.dto.SupplierDTO;
 import com.phall.demo.entity.Supplier;
 import com.phall.demo.mapper.SupplierMapper;
+import com.phall.demo.request.SupplierRequest;
+import com.phall.demo.response.SupplierResponse;
 import com.phall.demo.service.SupplierService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("supplier")
@@ -23,34 +26,37 @@ public class SupplierController {
     @Autowired
     private SupplierService supplierService;
 
+    @Autowired
+    private SupplierMapper supplierMapper;
+
     @GetMapping
-    public ResponseEntity<?> getAllEntity(){
-        List<Supplier> listAll =  supplierService.listAll();
-        return ResponseEntity.ok(listAll);
+    public ResponseEntity<List<SupplierResponse>> getAllEntity(){
+        List<SupplierResponse> response =  supplierService.listAll();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<?> saveData(@RequestBody SupplierDTO dto){
-        Supplier supplier = SupplierMapper.toSupplier(dto);
+    public ResponseEntity<SupplierResponse> saveData(@Valid @RequestBody SupplierRequest dto){
+        Supplier supplier = supplierMapper.toEntity(dto);
         Supplier saveData = supplierService.saveData(supplier);
 
-        SupplierDTO dto2 = SupplierMapper.toDTO(saveData);
-        return ResponseEntity.ok(dto2);
+        SupplierResponse response = supplierMapper.toDTO(saveData);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id){
+    public ResponseEntity<SupplierResponse> getById(@PathVariable Long id){
         Supplier getData =  supplierService.getById(id);
-        SupplierDTO dto = SupplierMapper.toDTO(getData);
-        return ResponseEntity.ok(dto);
+        SupplierResponse response = supplierMapper.toDTO(getData);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody SupplierDTO dto){
-        Supplier supplier = SupplierMapper.toSupplier(dto);
+    public ResponseEntity<SupplierResponse> update(@PathVariable Long id, @RequestBody SupplierRequest dto){
+        Supplier supplier = supplierMapper.toEntity(dto);
         Supplier update = supplierService.update(id, supplier);
-        SupplierDTO dataUpdate = SupplierMapper.toDTO(update);
-        return ResponseEntity.ok(dataUpdate);
+        SupplierResponse response = supplierMapper.toDTO(update);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("{id}")

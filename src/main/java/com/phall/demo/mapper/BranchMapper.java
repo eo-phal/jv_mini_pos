@@ -1,19 +1,15 @@
 package com.phall.demo.mapper;
 
-import com.phall.demo.dto.BranchDTO;
+import org.mapstruct.Mapper;
+
 import com.phall.demo.entity.Branch;
+import com.phall.demo.request.BranchRequest;
+import com.phall.demo.response.BranchResponse;
 
-public class BranchMapper {
-    public static Branch toBranch(BranchDTO dto){
-        Branch branch = new Branch();
-        branch.setName(dto.getName());
-        return branch;
-    }
+@Mapper(componentModel = "spring")
+public interface BranchMapper {
 
-    public static BranchDTO toDTO(Branch entity){
-        BranchDTO dto = new BranchDTO();
-        dto.setName(entity.getName());
-        // dto.setId(entity.getId());
-        return dto;
-    }
-}
+    Branch toEntity(BranchRequest request);
+    BranchResponse toDTO(Branch entity);
+
+} 

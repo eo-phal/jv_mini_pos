@@ -1,10 +1,11 @@
-package com.phall.demo.dto;
+package com.phall.demo.response;
 
 import lombok.Data;
 
 @Data
-public class CompanyDTO {
+public class CompanyResponse {
 
+    private Integer id;
     private String companyLocalName;
     private String companyEngName;
     private String companyEmail;

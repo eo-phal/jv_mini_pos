@@ -3,10 +3,11 @@ package com.phall.demo.service;
 import java.util.List;
 
 import com.phall.demo.entity.ExchangeRate;
+import com.phall.demo.response.ExchangeRateResponse;
 
 public interface ExchangeRateService {
 
-    List<ExchangeRate> listAll();
+    List<ExchangeRateResponse> listAll();
 
     ExchangeRate saveData(ExchangeRate exchangeRate);
 

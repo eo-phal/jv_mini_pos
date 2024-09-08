@@ -5,10 +5,13 @@ import org.springframework.stereotype.Service;
 
 import com.phall.demo.entity.Supplier;
 import com.phall.demo.exception.ResourceNotFoundException;
+import com.phall.demo.mapper.SupplierMapper;
 import com.phall.demo.repository.SupplierRepository;
+import com.phall.demo.response.SupplierResponse;
 import com.phall.demo.service.SupplierService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SupplierServiceImpl implements SupplierService{
@@ -16,8 +19,10 @@ public class SupplierServiceImpl implements SupplierService{
     @Autowired
     private SupplierRepository supplierRepository;
 
-    public List<Supplier> listAll(){
-        return supplierRepository.findAll();
+    @Autowired 
+    private SupplierMapper supplierMapper;
+    public List<SupplierResponse> listAll(){
+        return supplierRepository.findAll().stream().map(supplierMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override

@@ -1,13 +1,16 @@
 package com.phall.demo.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.phall.demo.entity.Branch;
 import com.phall.demo.exception.ResourceNotFoundException;
+import com.phall.demo.mapper.BranchMapper;
 import com.phall.demo.repository.BranchRepository;
+import com.phall.demo.response.BranchResponse;
 import com.phall.demo.service.BranchService;
 
 @Service
@@ -16,8 +19,11 @@ public class BranchServiceImpl implements BranchService{
     @Autowired
     private BranchRepository branchRepository;
 
-    public List<Branch> listAll(){
-        return branchRepository.findAll();
+    @Autowired
+    private BranchMapper branchMapper;
+
+    public List<BranchResponse> listAll(){
+        return branchRepository.findAll().stream().map(branchMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override

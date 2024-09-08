@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.phall.demo.dto.ExchangeRateDTO;
 import com.phall.demo.entity.ExchangeRate;
 import com.phall.demo.mapper.ExchangeRateMapper;
+import com.phall.demo.request.ExchangeRateRequest;
+import com.phall.demo.response.ExchangeRateResponse;
 import com.phall.demo.service.ExchangeRateService;
 
 import jakarta.validation.Valid;
@@ -26,35 +27,38 @@ public class ExchangeRateController {
 
     @Autowired
     private ExchangeRateService exchangeRateService;
+
+    @Autowired
+    private ExchangeRateMapper exchangeRateMapper;
         
     @GetMapping
-    public ResponseEntity<?> getAllEntity(){
-        List<ExchangeRate> listAll = exchangeRateService.listAll();
-        return ResponseEntity.ok(listAll);
+    public ResponseEntity<List<ExchangeRateResponse>> getAllEntity(){
+        List<ExchangeRateResponse> response = exchangeRateService.listAll();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<?> saveData(@Valid @RequestBody ExchangeRateDTO dto){
-        ExchangeRate exchangeRate = ExchangeRateMapper.toBranch(dto);
+    public ResponseEntity<ExchangeRateResponse> saveData(@Valid @RequestBody ExchangeRateRequest dto){
+        ExchangeRate exchangeRate = exchangeRateMapper.toEntity(dto);
         ExchangeRate saveData = exchangeRateService.saveData(exchangeRate);
 
-        ExchangeRateDTO dto2 = ExchangeRateMapper.toDTO(saveData);
-        return ResponseEntity.ok(dto2);
+        ExchangeRateResponse response = exchangeRateMapper.toDTO(saveData);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id){
+    public ResponseEntity<ExchangeRateResponse> getById(@PathVariable Long id){
         ExchangeRate getData = exchangeRateService.getById(id);
-        ExchangeRateDTO dto = ExchangeRateMapper.toDTO(getData);
-        return ResponseEntity.ok(dto);
+        ExchangeRateResponse response = exchangeRateMapper.toDTO(getData);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody ExchangeRateDTO dto){
-        ExchangeRate exchangeRate = ExchangeRateMapper.toBranch(dto);
+    public ResponseEntity<ExchangeRateResponse> update(@PathVariable Long id, @Valid @RequestBody ExchangeRateRequest dto){
+        ExchangeRate exchangeRate = exchangeRateMapper.toEntity(dto);
         ExchangeRate update = exchangeRateService.update(id, exchangeRate);
-        ExchangeRateDTO dataUpdate = ExchangeRateMapper.toDTO(update);
-        return ResponseEntity.ok(dataUpdate);
+        ExchangeRateResponse response = exchangeRateMapper.toDTO(update);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("{id}")

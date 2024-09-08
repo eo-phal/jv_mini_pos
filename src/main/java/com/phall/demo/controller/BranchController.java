@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.phall.demo.dto.BranchDTO;
 import com.phall.demo.entity.Branch;
 import com.phall.demo.mapper.BranchMapper;
+import com.phall.demo.request.BranchRequest;
+import com.phall.demo.response.BranchResponse;
 import com.phall.demo.service.BranchService;
 
 import jakarta.validation.Valid;
@@ -26,35 +27,38 @@ public class BranchController {
 
     @Autowired
     private BranchService branchService;
+
+    @Autowired
+    private BranchMapper branchMapper;
         
     @GetMapping
-    public ResponseEntity<?> getAllEntity(){
-        List<Branch> listAll = branchService.listAll();
-        return ResponseEntity.ok(listAll);
+    public ResponseEntity<List<BranchResponse>> getAllEntity(){
+        List<BranchResponse> response = branchService.listAll();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<?> saveData(@Valid @RequestBody BranchDTO dto){
-        Branch branch = BranchMapper.toBranch(dto);
+    public ResponseEntity<BranchResponse> saveData(@Valid @RequestBody BranchRequest dto){
+        Branch branch = branchMapper.toEntity(dto);
         Branch saveData = branchService.saveData(branch);
 
-        BranchDTO dto2 = BranchMapper.toDTO(saveData);
-        return ResponseEntity.ok(dto2);
+        BranchResponse response = branchMapper.toDTO(saveData);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id){
+    public ResponseEntity<BranchResponse> getById(@PathVariable Long id){
         Branch getData = branchService.getById(id);
-        BranchDTO dto = BranchMapper.toDTO(getData);
-        return ResponseEntity.ok(dto);
+        BranchResponse response = branchMapper.toDTO(getData);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody BranchDTO dto){
-        Branch branch = BranchMapper.toBranch(dto);
+    public ResponseEntity<BranchResponse> update(@PathVariable Long id, @Valid @RequestBody BranchRequest dto){
+        Branch branch = branchMapper.toEntity(dto);
         Branch update = branchService.update(id, branch);
-        BranchDTO dataUpdate = BranchMapper.toDTO(update);
-        return ResponseEntity.ok(dataUpdate);
+        BranchResponse response = branchMapper.toDTO(update);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("{id}")

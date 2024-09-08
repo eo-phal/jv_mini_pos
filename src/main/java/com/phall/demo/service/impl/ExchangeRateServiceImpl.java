@@ -1,13 +1,16 @@
 package com.phall.demo.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.phall.demo.entity.ExchangeRate;
 import com.phall.demo.exception.ResourceNotFoundException;
+import com.phall.demo.mapper.ExchangeRateMapper;
 import com.phall.demo.repository.ExchangeRateRepository;
+import com.phall.demo.response.ExchangeRateResponse;
 import com.phall.demo.service.ExchangeRateService;
 
 @Service
@@ -16,8 +19,11 @@ public class ExchangeRateServiceImpl implements ExchangeRateService{
     @Autowired
     private ExchangeRateRepository exchangeRateRepository;
 
-    public List<ExchangeRate> listAll(){
-        return exchangeRateRepository.findAll();
+    @Autowired 
+    private ExchangeRateMapper exchangeRateMapper;
+
+    public List<ExchangeRateResponse> listAll(){
+        return exchangeRateRepository.findAll().stream().map(exchangeRateMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override

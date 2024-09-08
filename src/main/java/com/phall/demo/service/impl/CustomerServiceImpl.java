@@ -5,10 +5,13 @@ import org.springframework.stereotype.Service;
 
 import com.phall.demo.entity.Customer;
 import com.phall.demo.exception.ResourceNotFoundException;
+import com.phall.demo.mapper.CustomerMapper;
 import com.phall.demo.repository.CustomerRepository;
+import com.phall.demo.response.CustomerResponse;
 import com.phall.demo.service.CustomerService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService{
@@ -16,8 +19,11 @@ public class CustomerServiceImpl implements CustomerService{
     @Autowired
     private CustomerRepository customerRepository;
 
-    public List<Customer> listAll(){
-        return customerRepository.findAll();
+    @Autowired
+    private CustomerMapper customerMapper;
+
+    public List<CustomerResponse> listAll(){
+        return customerRepository.findAll().stream().map(customerMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override

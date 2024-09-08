@@ -3,10 +3,11 @@ package com.phall.demo.service;
 import java.util.List;
 
 import com.phall.demo.entity.GeneralSetting;
+import com.phall.demo.response.GeneralSettingResponse;
 
 public interface GeneralSettingService {
 
-    List<GeneralSetting> listAll();
+    List<GeneralSettingResponse> listAll();
 
     GeneralSetting saveData(GeneralSetting branch);
 

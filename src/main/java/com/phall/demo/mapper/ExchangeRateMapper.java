@@ -1,18 +1,15 @@
 package com.phall.demo.mapper;
 
-import com.phall.demo.dto.ExchangeRateDTO;
+import org.mapstruct.Mapper;
+
 import com.phall.demo.entity.ExchangeRate;
+import com.phall.demo.request.ExchangeRateRequest;
+import com.phall.demo.response.ExchangeRateResponse;
 
-public class ExchangeRateMapper {
-    public static ExchangeRate toBranch(ExchangeRateDTO dto){
-        ExchangeRate exchangeRate = new ExchangeRate();
-        exchangeRate.setExchangeRate(dto.getExchangeRate());
-        return exchangeRate;
-    }
+@Mapper(componentModel = "spring")
+public interface ExchangeRateMapper {
 
-    public static ExchangeRateDTO toDTO(ExchangeRate entity){
-        ExchangeRateDTO dto = new ExchangeRateDTO();
-        dto.setExchangeRate(entity.getExchangeRate());
-        return dto;
-    }
+    ExchangeRate toEntity(ExchangeRateRequest request);
+    ExchangeRateResponse toDTO(ExchangeRate entity);
+    
 }

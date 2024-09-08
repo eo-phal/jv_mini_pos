@@ -1,28 +1,15 @@
 package com.phall.demo.mapper;
 
-import com.phall.demo.dto.SupplierDTO;
+import org.mapstruct.Mapper;
+
 import com.phall.demo.entity.Supplier;
+import com.phall.demo.request.SupplierRequest;
+import com.phall.demo.response.SupplierResponse;
 
-public class SupplierMapper {
-    public static Supplier toSupplier(SupplierDTO entity){
-        Supplier supplier = new Supplier();
-        supplier.setSupplierLocalName(entity.getSupplierLocalName());
-        supplier.setSupplierEngName(entity.getSupplierEngName());
-        supplier.setSupplierEmail(entity.getSupplierEmail());
-        supplier.setSupplierPhone(entity.getSupplierPhone());
-        supplier.setSupplierAddress(entity.getSupplierAddress());
-        supplier.setSupplierVatNumber(entity.getSupplierVatNumber());
-        return supplier;
-    }
+@Mapper(componentModel = "spring")
+public interface SupplierMapper {
 
-    public static SupplierDTO toDTO(Supplier entity){
-        SupplierDTO dto = new SupplierDTO();
-        dto.setSupplierLocalName(entity.getSupplierLocalName());
-        dto.setSupplierEngName(entity.getSupplierEngName());
-        dto.setSupplierEmail(entity.getSupplierEmail());
-        dto.setSupplierPhone(entity.getSupplierPhone());
-        dto.setSupplierAddress(entity.getSupplierAddress());
-        dto.setSupplierVatNumber(entity.getSupplierVatNumber());
-        return dto;
-    }
+    Supplier toEntity(SupplierRequest request);
+    SupplierResponse toDTO(Supplier entity);
+
 }

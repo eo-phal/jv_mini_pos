@@ -3,10 +3,11 @@ package com.phall.demo.service;
 import java.util.List;
 
 import com.phall.demo.entity.Company;
+import com.phall.demo.response.CompanyResponse;
 
 public interface CompanyService {
 
-    List<Company> listAll();
+    List<CompanyResponse> listAll();
 
     Company saveData(Company company);
 
